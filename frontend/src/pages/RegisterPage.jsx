@@ -1,7 +1,6 @@
-import React from 'react'
 import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import { api, userStore } from '../services/api';
+import { api } from '../services/api';
 
 const RegisterPage = () => {
     const [userData, setUserData] = useState({
@@ -21,14 +20,8 @@ const RegisterPage = () => {
 
         try {
 
-            const useDAta = await api.post('/user/register', userData)
-            console.log(useDAta.data);
-            if (useDAta.data) {
-                const tokan = useDAta.data.tokan;
-                const userD = useDAta.data.data;
-                userStore(tokan, userD)
-                navigate('/login')
-            }
+            const res = await api.post('/user/register', userData);
+            navigate('/login')
         } catch (error) {
             console.log(error.response.data);
         }
@@ -57,6 +50,6 @@ const RegisterPage = () => {
 
         </div>
     )
-}
+} 
 
 export default RegisterPage

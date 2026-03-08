@@ -1,20 +1,63 @@
 const userError = require('../helper/errorHandler');
 const USER = require('../models/userModel');
-const bcrypt = require('bcrypt')
+const bcryptjs = require('bcryptjs')
+const jwt = require('jsonwebtoken')
 
 
 const register = async (req, res) => {
-    try {        
+    try {
         const useData = req.body;
-        const hashPass = await bcrypt.hash(useData.user_password, 10);
+        const hashPass = await bcryptjs.hash(useData.user_password, 10);
         const setPass = await USER.create({
             ...useData,
             user_password: hashPass
         })
-        res.status(201).json({data:setPass})
+        res.status(201).json({ data: setPass })
     } catch (error) {
         const errors = userError(error);
         return res.status(errors.status || 500).json(errors)
+    }
+}
+
+const login = async (req, res) => {
+
+    try {
+        const data = req.body;
+
+        const findUser = await USER.findOne({
+            where: { user_email: data.user_email }
+        })
+
+        if (!findUser) {
+            return res.status(401).json({ msg: "Invalid Creadentials" })
+        }
+
+        const matchPass = await bcryptjs.compare(
+            data.user_password,
+            findUser.user_password
+        );
+
+        if (!matchPass) {
+            return res.status(401).json({ msg: "Invalird Credentials" });
+        }
+
+        const paylod = {
+            id: findUser.user_id,
+            email: findUser.user_email
+        }; 
+
+        const token = jwt.sign(paylod, "mysecretkey", {
+            expiresIn: "1h"
+        })
+
+        res.status(200).json({
+            token,
+            user: findUser
+        })
+    } catch (error) {
+        const errors = userError(error);
+        return res.status(errors.status || 500).json(errors)
+        
     }
 }
 
@@ -85,6 +128,7 @@ const deleteUser = async (req, res) => {
 
 module.exports = {
     register,
+    login,
     index,
     store,
     find,
