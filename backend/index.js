@@ -1,7 +1,6 @@
 const express = require('express');
 require('dotenv').config();
 const core = require('cors');
-const userRoutes = require('./src/routes/userRoutes')
 require("./src/config/db")
 
 
@@ -9,7 +8,11 @@ const app = express();
 app.use(core());
 app.use(express.json());
 
+const userRoutes = require('./src/routes/userRoutes');
 app.use('/api/user',userRoutes);
+
+const incomeRoutes = require('./src/routes/incomeRoutes');
+app.use('/api/income',incomeRoutes);
 
 
 const PORT = process.env.PORT;
