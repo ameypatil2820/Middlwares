@@ -46,7 +46,7 @@ const login = async (req, res) => {
             email: findUser.user_email
         }; 
 
-        const token = jwt.sign(paylod, "mysecretkey", {
+        const token = jwt.sign(paylod, "ameypatiljbalajipatil", {
             expiresIn: "1h"
         })
 

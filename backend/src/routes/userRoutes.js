@@ -1,11 +1,12 @@
 const express = require('express');
 const router = express.Router();
+const middl = require('../middleware/userMiddleware')
 
 const userController = require('../controllers/userController');
 
 router.post('/register', userController.register)
 router.post('/login',userController.login)
-router.get('/', userController.index);
+router.get('/',middl, userController.index);
 router.post('/store', userController.store);
 router.get('/find/:id', userController.find);
 router.put('/update/:id', userController.update);

@@ -62,4 +62,5 @@ const USER = sequlize.define(
 )
 
 USER.sync();
+
 module.exports = USER;

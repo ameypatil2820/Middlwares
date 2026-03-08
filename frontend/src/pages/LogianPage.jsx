@@ -1,6 +1,6 @@
 import { useState } from "react"
 import { Link, useNavigate } from "react-router-dom"
-import { api } from "../services/api"
+import { api, userStore } from "../services/api"
 
 const LogianPage = () => {
 
@@ -18,11 +18,16 @@ const LogianPage = () => {
         e.preventDefault()
         try {
             const res = await api.post('/user/login', loginData)
-            sessionStorage.setItem("token", res.data.token);
-            
-            navigate('/dashbord')
+            if (res.data.user) {
+                const token = res.data.token;
+                const userData = res.data.user;
+                userStore(token, userData);
+                navigate('/dashbord')
+            } else {
+                alert("Login failed");
+            }
         } catch (error) {
-            console.log(error);
+            console.log(error.message);
         }
     }
 
