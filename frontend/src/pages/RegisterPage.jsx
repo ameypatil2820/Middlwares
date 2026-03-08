@@ -1,11 +1,11 @@
 import React from 'react'
 import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import api from '../services/api';
+import { api, userStore } from '../services/api';
 
 const RegisterPage = () => {
     const [userData, setUserData] = useState({
-        status:"user"
+        status: "user"
     });
     const navigate = useNavigate()
 
@@ -20,8 +20,15 @@ const RegisterPage = () => {
         e.preventDefault()
 
         try {
-            await api.post('/user/register', userData)
-            navigate('/login')
+
+            const useDAta = await api.post('/user/register', userData)
+            console.log(useDAta.data);
+            if (useDAta.data) {
+                const tokan = useDAta.data.tokan;
+                const userD = useDAta.data.data;
+                userStore(tokan, userD)
+                navigate('/login')
+            }
         } catch (error) {
             console.log(error.response.data);
         }

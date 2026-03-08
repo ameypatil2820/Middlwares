@@ -11,7 +11,7 @@ const register = async (req, res) => {
             ...useData,
             user_password: hashPass
         })
-        res.status(201).json(setPass)
+        res.status(201).json({data:setPass})
     } catch (error) {
         const errors = userError(error);
         return res.status(errors.status || 500).json(errors)

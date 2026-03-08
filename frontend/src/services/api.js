@@ -11,12 +11,14 @@ const api = axios.create(
     })
 
 
-    const userStore = () =>{
+const userStore = (tokan, user) => {
+    sessionStorage.setItem("tokan", tokan)
+    sessionStorage.setItem('user', JSON.stringify(user))
+}
 
-    }
+const userRemoev = () => {
+    sessionStorage.removeItem('tokan')
+    sessionStorage.removeItem('user')
+}
 
-    const userRemoev = () =>{
-        
-    }
-
-export default api; 
+export { api, userStore, userRemoev }; 
