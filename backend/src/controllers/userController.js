@@ -3,7 +3,6 @@ const USER = require('../models/userModel');
 const bcryptjs = require('bcryptjs')
 const jwt = require('jsonwebtoken')
 
-
 const register = async (req, res) => {
     try {
         const useData = req.body;
@@ -44,7 +43,7 @@ const login = async (req, res) => {
         const paylod = {
             id: findUser.user_id,
             email: findUser.user_email
-        }; 
+        };
 
         const token = jwt.sign(paylod, "ameypatiljbalajipatil", {
             expiresIn: "1h"
@@ -57,7 +56,7 @@ const login = async (req, res) => {
     } catch (error) {
         const errors = userError(error);
         return res.status(errors.status || 500).json(errors)
-        
+
     }
 }
 
@@ -80,7 +79,6 @@ const store = async (req, res) => {
         const errors = userError(error);
         return res.status(errors.status || 500).json(errors)
     }
-
 
 }
 

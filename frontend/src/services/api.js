@@ -9,15 +9,24 @@ const api = axios.create(
         }
     })
 
+api.interceptors.request.use((config) => {
 
-const userStore = (tokan, user) => {
-    sessionStorage.setItem("tokan", tokan)
+    const token = sessionStorage.getItem("token");
+    if (token) {
+        config.headers.Authorization = `Bearer ${token}`;
+    }
+    return config;
+});
+
+
+
+const userStore = (token, user) => {
+    sessionStorage.setItem("token", token)
     sessionStorage.setItem('user', JSON.stringify(user))
 }
 
 const userRemoev = () => {
-    sessionStorage.removeItem('tokan')
+    sessionStorage.removeItem('token')
     sessionStorage.removeItem('user')
 }
-
 export { api, userStore, userRemoev }; 

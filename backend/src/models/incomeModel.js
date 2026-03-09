@@ -1,6 +1,5 @@
 const { DataTypes } = require('sequelize');
 const sequelize = require('../config/db');
-const USER = require('./userModel');
 
 const INCOME = sequelize.define(
     "INCOME",
@@ -19,7 +18,9 @@ const INCOME = sequelize.define(
             type: DataTypes.INTEGER,
             allowNull: false,
             validate: {
-                msg: "Amount is Requried"
+                notEmpty: {
+                    msg: "Amount is Requried"
+                }
             }
         },
 
@@ -27,7 +28,9 @@ const INCOME = sequelize.define(
             type: DataTypes.DATEONLY,
             allowNull: false,
             validate: {
-                msg: "Date is Requried"
+                notEmpty: {
+                    msg: "Date is Requried"
+                }
             }
         },
 
@@ -38,13 +41,12 @@ const INCOME = sequelize.define(
 
         fk_id: {
             type: DataTypes.INTEGER,
-            allowNull: false,
-            references: {
-                model: USER,
-                key: user_id
-            }
+            allowNull: false
         }
-
+    },
+    {
+        tableName: "incomeTable",
+        timestamps: true
     }
 )
 

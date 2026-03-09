@@ -3,7 +3,7 @@ const { Sequelize } = require('sequelize');
 const sequelize = new Sequelize(
     {
         dialect: "sqlite",
-        storage: "./incomedatabase.sqlite",
+        storage: "./incomtabledb.sqlite",
         logging: false
     }
 )

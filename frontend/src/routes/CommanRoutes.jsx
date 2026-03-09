@@ -3,6 +3,7 @@ import RegisterPage from "../pages/RegisterPage"
 import LogianPage from "../pages/LogianPage"
 import Dashbord from "../pages/Dashbord"
 import { useEffect } from "react"
+import IncomePage from "../pages/IncomePage"
 
 const CommanRoutes = () => {
     const navigate = useNavigate()
@@ -15,13 +16,14 @@ const CommanRoutes = () => {
             navigate('/login')
         }
     },[token]);
-    
+
     return (
         <div>
             <Routes>
                 <Route path="/" element={<RegisterPage />} />
                 <Route path="/register" element={<RegisterPage />} />
                 <Route path="/login" element={<LogianPage />} />
+                <Route path="/income" element={<IncomePage />} />
                 <Route path="/dashbord" element={<Dashbord />} />
             </Routes>
         </div>

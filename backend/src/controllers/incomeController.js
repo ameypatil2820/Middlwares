@@ -1,10 +1,12 @@
 const userError = require("../helper/errorHandler");
-const INCOME = require("../models/incomeModel")
+const INCOME = require("../models/incomeModel");
 
 
 const index = async (req, res) => {
     try {
-        const income = await INCOME.findAll();
+        const income = await INCOME.findAll({
+            where: { fk_id: req.user.id }
+        });
         res.status(200).json(income)
     } catch (error) {
         const errors = userError(error);
@@ -12,10 +14,12 @@ const index = async (req, res) => {
     }
 }
 const store = async (req, res) => {
-    const strData = req.body;
     try {
-        await INCOME.create(strData);
-        res.status(200).json(strData)
+      const incomeData = await INCOME.create({
+        ...req.body,
+        fk_id:req.user.id
+      });
+        res.status(200).json(incomeData)
     } catch (error) {
         const errors = userError(error);
         return res.status(errors.status || 500).json(errors)
@@ -64,4 +68,4 @@ module.exports = {
     find,
     update,
     deleteIncome
-}
+}    
