@@ -1,55 +1,49 @@
 const { DataTypes } = require('sequelize');
 const sequelize = require('../config/db');
 
-const INCOME = sequelize.define(
-    "INCOME",
+const EXPENSE = sequelize.define(
+    "EXPENSE",
     {
-        in_source: {
+        ex_source: {
             type: DataTypes.STRING,
             allowNull: false,
             validate: {
                 notEmpty: {
-                    msg: "Sourrce is Requried"
+                    msg: "Source is Requried"
                 }
             }
         },
 
-        in_amount: {
+        ex_amount: {
             type: DataTypes.INTEGER,
             allowNull: false,
             validate: {
                 notEmpty: {
-                    msg: "Amount is Requried"
+                    msg: "Amout is Requried"
                 }
             }
         },
 
-        in_data: {
+        ex_date: {
             type: DataTypes.DATEONLY,
             allowNull: false,
-            validate: {
-                notEmpty: {
-                    msg: "Date is Requried"
-                }
-            }
         },
 
-        in_time: {
+        ex_time: {
             type: DataTypes.TIME,
             allowNull: false
         },
 
-        fk_id:
-        {
+        ex_fk_id: {
             type: DataTypes.INTEGER,
             allowNull: false
-        }
+        },
     },
     {
-        tableName: "incomeTable",
+        tableName: "expenseTable",
         timestamps: true
     }
 )
 
-INCOME.sync();
-module.exports = INCOME;
+EXPENSE.sync();
+module.exports = EXPENSE;

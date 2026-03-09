@@ -18,8 +18,6 @@ api.interceptors.request.use((config) => {
     return config;
 });
 
-
-
 const userStore = (token, user) => {
     sessionStorage.setItem("token", token)
     sessionStorage.setItem('user', JSON.stringify(user))
@@ -30,3 +28,4 @@ const userRemoev = () => {
     sessionStorage.removeItem('user')
 }
 export { api, userStore, userRemoev }; 
+ 

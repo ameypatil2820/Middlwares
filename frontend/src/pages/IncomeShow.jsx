@@ -9,7 +9,7 @@ const IncomeShow = () => {
 
     const fetchIncome = async () => {
         try {
-            const res = await api.get('./income/idx');
+            const res = await api.get('/income/idx');
             setShowIncome(res.data)
         } catch (error) {
             console.log(error);
@@ -25,6 +25,11 @@ const IncomeShow = () => {
         }
     }
 
+    const totalAmout = showIncome.reduce((tol, inc) => {
+        return tol + Number(inc.in_amount);
+    }, 0)
+
+
     useEffect(() => {
         fetchIncome();
     }, [])
@@ -32,8 +37,10 @@ const IncomeShow = () => {
 
     return (
         <div>
-            <Link to='/income'>Add Income</Link>
 
+            <Link to='/income'>Add Income</Link>
+            <Link to='/dashbord'>Back</Link>
+            <h3>total:{totalAmout}</h3>
             <table>
                 <thead>
                     <tr>
@@ -54,14 +61,13 @@ const IncomeShow = () => {
                             <td>{data.in_data}</td>
                             <td>{data.in_time}</td>
                             <td>
-                                <Link to="">Edit</Link>
+                                <Link to={`/edit/${data.id}`}>Edit</Link>
                                 <button onClick={() => deleteHandler(data.id)}>Delete</button>
                             </td>
                         </tr>
                     ))}
                 </tbody>
             </table>
-
         </div>
     )
 }

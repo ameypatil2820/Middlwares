@@ -37,12 +37,16 @@ const LogianPage = () => {
             <Link to='/register'>Back</Link>
 
             <form onSubmit={submithandler}>
-                <label>Email
-                    <input type="email" name="user_email" onChange={handlerfunction} value={loginData.user_email || ''} />
-                </label>
-                <label>
-                    <input type="password" name="user_password" onChange={handlerfunction} value={loginData.user_password || ''} />
-                </label>
+                <div>
+                    <label>Email
+                        <input type="email" name="user_email" onChange={handlerfunction} value={loginData.user_email || ''} />
+                    </label>
+                </div>
+                <div>
+                    <label>
+                        <input type="password" name="user_password" onChange={handlerfunction} value={loginData.user_password || ''} />
+                    </label>
+                </div>
                 <button type="submit">Login</button>
 
             </form>
