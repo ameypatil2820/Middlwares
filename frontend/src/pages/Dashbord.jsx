@@ -1,7 +1,15 @@
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import IncomeShow from './IncomeShow'
+import { userRemoev } from '../services/api';
 
 const Dashbord = () => {
+    const navigate = useNavigate();
+
+    const logoutHandler = () => {
+        userRemoev();
+        navigate('/')
+
+    }
 
 
     return (
@@ -17,6 +25,9 @@ const Dashbord = () => {
             </div>
             <div>
                 <Link to="/eshow">Total Expense</Link>
+            </div>
+            <div>
+                <button onClick={logoutHandler}>Logout</button>
             </div>
         </div>
     )
