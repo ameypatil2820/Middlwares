@@ -1,4 +1,3 @@
-import React from 'react'
 import { useState } from 'react'
 import { api } from '../services/api';
 import { useEffect } from 'react';
@@ -16,7 +15,7 @@ const ExpenseShow = () => {
         }
     }
 
-    const deleteHandler = async (id) => {
+    const deleteHandler = async (id) => {        
         try {
             await api.delete(`/exp/edelete/${id}`);
             showExpense();
@@ -25,6 +24,10 @@ const ExpenseShow = () => {
         }
     }
 
+    const totalExpense = expShow.reduce((total,expense)=>{
+        return total + Number(expense.ex_amount);
+    },0)
+
     useEffect(() => {
         showExpense();
     }, []);
@@ -32,7 +35,7 @@ const ExpenseShow = () => {
     return (
         <div>
             <Link to='/expense'>Add Expense</Link>
-
+             <h3>total:{totalExpense}</h3>
             <table>
                 <thead>
                     <tr>

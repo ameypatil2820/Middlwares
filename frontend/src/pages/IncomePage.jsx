@@ -52,6 +52,7 @@ const IncomePage = () => {
                         <input type="time" name='in_time' onChange={handlerfunction} value={income.in_time || ''} />
                     </label>
                 </div>
+                
                 <div>
                     <button type="submit">Add Income</button>
                 </div>

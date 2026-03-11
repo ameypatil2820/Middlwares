@@ -3,14 +3,15 @@ const router = express.Router();
 const middl = require('../middleware/userMiddleware')
 
 const userController = require('../controllers/userController');
+const { memoryUpload } = require('../middleware/memoryUpload');
 
 router.post('/register', userController.register)
 router.post('/login',userController.login)
 router.get('/',middl, userController.index);
 router.post('/store', userController.store);
 router.get('/find/:id', userController.find);
-router.put('/update/:id', userController.update);
+router.put('/update/:id',memoryUpload('user') ,userController.update);
 router.delete('/delete/:id', userController.deleteUser);
 
 
-module.exports = router;
+module.exports = router;            

@@ -43,7 +43,7 @@ const LogianPage = () => {
                     </label>
                 </div>
                 <div>
-                    <label>
+                    <label>Password
                         <input type="password" name="user_password" onChange={handlerfunction} value={loginData.user_password || ''} />
                     </label>
                 </div>

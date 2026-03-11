@@ -9,6 +9,8 @@ import IncomeShow from "../pages/IncomeShow"
 import ExpenseCreate from "../pages/ExpenseCreate"
 import ExpenseShow from "../pages/ExpenseShow"
 import ExpenseEdit from "../pages/ExpenseEdit"
+import ProfilePage from "../pages/ProfilePage"
+
 
 const CommanRoutes = () => {
     const navigate = useNavigate()
@@ -34,6 +36,7 @@ const CommanRoutes = () => {
                 <Route path="/expense" element={<ExpenseCreate />} />
                 <Route path="/eshow" element={<ExpenseShow />} />
                 <Route path="/expedit/:id" element={<ExpenseEdit />} />
+                <Route path="/profile" element={<ProfilePage />} />
                 <Route path="/dashbord" element={<Dashbord />} />
             </Routes>
         </div>

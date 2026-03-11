@@ -2,6 +2,7 @@ const userError = require('../helper/errorHandler');
 const USER = require('../models/userModel');
 const bcryptjs = require('bcryptjs')
 const jwt = require('jsonwebtoken')
+const { saveRAMFiles } = require("../middleware/memoryUpload");
 
 const register = async (req, res) => {
     try {
@@ -46,7 +47,7 @@ const login = async (req, res) => {
         };
 
         const token = jwt.sign(paylod, "ameypatiljbalajipatil", {
-            expiresIn: "1h"
+            expiresIn: "3h"
         })
 
         res.status(200).json({
@@ -92,23 +93,33 @@ const find = async (req, res) => {
     }
 
 }
-
 const update = async (req, res) => {
-    const user = req.params.id
+    const user = req.params.id;
+
     try {
-        const useData = await USER.findByPk(user);
-        if (!useData) {
-            return res.status(404).json({ msg: "User not Found" })
+
+        if (req.tempFiles && req.tempFiles.length > 0) {
+            await saveRAMFiles(req.tempFiles);
         }
+
+        const useData = await USER.findByPk(user);
+
+        if (!useData) {
+            return res.status(404).json({ msg: "User not Found" });
+        }
+
         await useData.update(req.body);
-        res.status(200).json(useData)
+
+        res.status(200).json({
+            success: true,
+            data: useData
+        });
+
     } catch (error) {
         const errors = userError(error);
         return res.status(errors.status || 500).json(errors)
     }
-
 }
-
 const deleteUser = async (req, res) => {
     try {
         const userData = await USER.findByPk(req.params.id);

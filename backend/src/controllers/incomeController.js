@@ -13,6 +13,7 @@ const index = async (req, res) => {
         return res.status(errors.status || 500).json(errors)
     }
 }
+
 const store = async (req, res) => {
     try {
       const incomeData = await INCOME.create({
@@ -25,6 +26,7 @@ const store = async (req, res) => {
         return res.status(errors.status || 500).json(errors)
     }
 }
+
 const find = async (req, res) => {
     try {
         const incomData = await INCOME.findByPk(req.params.id);
@@ -34,6 +36,7 @@ const find = async (req, res) => {
         return res.status(errors.status || 500).json(errors)
     }
 }
+
 const update = async (req, res) => {
     const updatIncome = req.params.id;
     try {
@@ -48,6 +51,7 @@ const update = async (req, res) => {
         return res.status(errors.status || 500).json(errors)
     }
 }
+
 const deleteIncome = async (req, res) => {
     try {
         const incomData = await INCOME.findByPk(req.params.id);

@@ -23,7 +23,7 @@ const RegisterPage = () => {
             const res = await api.post('/user/register', userData);
             navigate('/login')
         } catch (error) {
-            console.log(error.response.data);
+            console.log(error.message);
         }
     }
 
@@ -50,6 +50,6 @@ const RegisterPage = () => {
 
         </div>
     )
-} 
+}
 
 export default RegisterPage

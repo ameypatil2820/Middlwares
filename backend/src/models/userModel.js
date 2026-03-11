@@ -48,6 +48,12 @@ const USER = sequlize.define(
             }
         },
 
+        user_img: {
+            type: DataTypes.STRING,
+            allowNull: true
+        },
+
+
         status: {
             type: DataTypes.ENUM("admin", "user"),
             allowNull: false
